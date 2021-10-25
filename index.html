@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Triangles</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Personal CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <h1>Triangles</h1>
+    <div class="parameter-choices-container">
+      <div class="parameter-choice">
+        <button class="btn sas">2 sides and 1 angle</button>
+      </div>
+      <div class="parameter-choice">
+        <button class="btn asa">1 side and 2 angles</button>
+      </div>
+      <div class="parameter-choice">
+        <button class="btn sss">3 sides</button>
+      </div>
+    </div>
+
+    <div class="sas-container input-container hidden">
+      <label>First Side</label>
+      <input type="number" class="input side fs" />
+      <label>Second Side</label>
+      <input type="number" class="input side ss" />
+      <label>Third Angle</label>
+      <input type="number" class="input angle ta" />
+
+      <button class="btn sas-submit">Submit</button>
+    </div>
+
+    <div class="asa-container input-container hidden">
+      <label>First Angle</label>
+      <input type="text" class="input fa" />
+      <label>Second Angle</label>
+      <input type="text" class="input sa" />
+      <label>Third Side</label>
+      <input type="text" class="input ta" />
+
+      <button class="btn asa-submit">Submit</button>
+    </div>
+
+    <div class="sss-container input-container hidden">
+      <!-- add hidden "class" here -->
+      <label>First Side</label>
+      <input type="text" class="input fs" />
+      <label>Second Side</label>
+      <input type="text" class="input ss" />
+      <label>Third Side</label>
+      <input type="text" class="input ts" />
+
+      <button class="btn sss-submit">Submit</button>
+    </div>
+
+    <div class="final-answer-container">
+      <p class="answer-text"></p>
+    </div>
+
+    <!-- Personal JavaScript -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
