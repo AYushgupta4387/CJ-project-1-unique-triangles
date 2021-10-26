@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans:wght@500&display=swap"
       rel="stylesheet"
     />
 
@@ -22,46 +22,45 @@
     <h1>Unique Triangles</h1>
     <div class="parameter-choices-container">
       <div class="parameter-choice">
-        <button class="btn sas">2 sides and 1 angle</button>
+        <button class="btn sas">SIDE - ANGLE - SIDE</button>
       </div>
       <div class="parameter-choice">
-        <button class="btn asa">1 side and 2 angles</button>
+        <button class="btn asa">ANGLE - SIDE - ANGLE</button>
       </div>
       <div class="parameter-choice">
-        <button class="btn sss">3 sides</button>
+        <button class="btn sss">SIDE - SIDE - SIDE</button>
       </div>
     </div>
 
     <div class="sas-container input-container hidden">
       <label>First Side</label>
-      <input type="number" class="input side fs" />
+      <input type="number" class="input side sas-fs" />
       <label>Second Side</label>
-      <input type="number" class="input side ss" />
+      <input type="number" class="input side sas-ss" />
       <label>Third Angle</label>
-      <input type="number" class="input angle ta" />
+      <input type="number" class="input angle sas-ta" />
 
       <button class="btn sas-submit">Submit</button>
     </div>
 
     <div class="asa-container input-container hidden">
       <label>First Angle</label>
-      <input type="text" class="input fa" />
+      <input type="text" class="input asa-fa" />
       <label>Second Angle</label>
-      <input type="text" class="input sa" />
+      <input type="text" class="input asa-sa" />
       <label>Third Side</label>
-      <input type="text" class="input ta" />
+      <input type="text" class="input asa-ts" />
 
       <button class="btn asa-submit">Submit</button>
     </div>
 
     <div class="sss-container input-container hidden">
-      <!-- add hidden "class" here -->
       <label>First Side</label>
-      <input type="text" class="input fs" />
+      <input type="text" class="sss-fs" />
       <label>Second Side</label>
-      <input type="text" class="input ss" />
+      <input type="text" class="sss-ss" />
       <label>Third Side</label>
-      <input type="text" class="input ts" />
+      <input type="text" class="sss-ts" />
 
       <button class="btn sss-submit">Submit</button>
     </div>

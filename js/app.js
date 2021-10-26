@@ -84,20 +84,31 @@ const sineLawForAngle = function (sideA, sideB, angleB) {
   return sineAngleA;
 };
 
+// Sine rule to calculate a side
+const sineLawForSide = function (sideA, angleA, angleB) {
+  let sideB = (sideA * Math.sin(angleB)) / Math.sin(angleA);
+
+  return sideB;
+};
+
 // SAS
 sasSubmit.addEventListener("click", function () {
   // Sides
-  let firstSide = Number(document.querySelector(".fs").value) || undefined;
-  let secondSide = Number(document.querySelector(".ss").value) || undefined;
-  let thirdSide = Number(document.querySelector(".ts").value) || undefined;
+  let firstSide = Number(document.querySelector(".sas-fs")?.value) || undefined;
+  let secondSide =
+    Number(document.querySelector(".sas-ss")?.value) || undefined;
+  let thirdSide = Number(document.querySelector(".sas-ts")?.value) || undefined;
 
   // Angles
   let firstAngle =
-    (Number(document.querySelector(".fa")?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
+    (Number(document.querySelector(".sas-fa")?.value) * 3.1416) / 180 ||
+    undefined; // Converting deg to Rad
   let secondAngle =
-    (Number(document.querySelector(".sa")?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
+    (Number(document.querySelector(".sas-sa")?.value) * 3.1416) / 180 ||
+    undefined; // Converting deg to Rad
   let thirdAngle =
-    (Number(document.querySelector(".ta")?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
+    (Number(document.querySelector(".sas-ta")?.value) * 3.1416) / 180 ||
+    undefined; // Converting deg to Rad
 
   thirdSide = cosineLawForSide(firstSide, secondSide, thirdAngle);
 
@@ -105,57 +116,79 @@ sasSubmit.addEventListener("click", function () {
 
   secondAngle = 3.1416 - (firstAngle + thirdAngle);
 
-  document.querySelector(".answer-text").textContent = `a:${firstSide}
-  b:${secondSide}
-  c:${thirdSide}
-  x:${Math.round(firstAngle * 57.296)}
-  y:${Math.round(secondAngle * 57.296)}
-  z:${Math.round(thirdAngle * 57.296)}`;
+  document.querySelector(".answer-text").textContent = `a:${firstSide.toFixed(
+    2
+  )}
+  b:${secondSide.toFixed(2)}
+  c:${thirdSide.toFixed(2)}
+  x:${(firstAngle * 57.296).toFixed(2)}
+  y:${(secondAngle * 57.296).toFixed(2)}
+  z:${(thirdAngle * 57.296).toFixed(2)}`;
 });
 
 // ASA
 asaSubmit.addEventListener("click", function () {
   // Sides
-  let FirstSide = Number(document.querySelector(".fs").value) || undefined;
-  let SecondSide = Number(document.querySelector(".ss").value) || undefined;
-  let ThirdSide = Number(document.querySelector(".ts").value) || undefined;
+  let firstSide = Number(document.querySelector(".asa-fs")?.value) || undefined;
+  let secondSide =
+    Number(document.querySelector(".asa-ss")?.value) || undefined;
+  let thirdSide = Number(document.querySelector(".asa-ts")?.value) || undefined;
 
   // Angles
-  let FirstAngle =
-    (Number(document.querySelector(".fa")?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
-  let SecondAngle =
-    (Number(document.querySelector(".sa")?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
-  let ThirdAngle =
-    (Number(document.querySelector(".ta")?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
+  let firstAngle =
+    (Number(document.querySelector(".asa-fa")?.value) * 3.1416) / 180 ||
+    undefined; // Converting deg to Rad
+  let secondAngle =
+    (Number(document.querySelector(".asa-sa")?.value) * 3.1416) / 180 ||
+    undefined; // Converting deg to Rad
+  let thirdAngle =
+    (Number(document.querySelector(".asa-ta")?.value) * 3.1416) / 180 ||
+    undefined; // Converting deg to Rad
+
+  thirdAngle = 3.1416 - (firstAngle + secondAngle);
+
+  firstSide = sineLawForSide(thirdSide, thirdAngle, firstAngle);
+  secondSide = sineLawForSide(thirdSide, thirdAngle, secondAngle);
+
+  document.querySelector(".answer-text").textContent = `a:${firstSide.toFixed(
+    2
+  )}
+  b:${secondSide.toFixed(2)}
+  c:${thirdSide.toFixed(2)}
+  x:${(firstAngle * 57.296).toFixed(0)}
+  y:${(secondAngle * 57.296).toFixed(0)}
+  z:${(thirdAngle * 57.296).toFixed(0)}`;
 });
 
 // SSS
 sssSubmit.addEventListener("click", function () {
   // Sides
-  let firstSide = Number(document.querySelector(".fs").value) || undefined;
-  let secondSide = Number(document.querySelector(".ss").value) || undefined;
-  let thirdSide = Number(document.querySelector(".ts").value) || undefined;
-
-  console.log(firstSide);
-  console.log(secondSide);
-  console.log(thirdSide);
+  let firstSide = Number(document.querySelector(".sss-fs")?.value) || undefined;
+  let secondSide =
+    Number(document.querySelector(".sss-ss")?.value) || undefined;
+  let thirdSide = Number(document.querySelector(".sss-ts")?.value) || undefined;
 
   // Angles
   let firstAngle =
-    (Number(document.querySelector(".fa")?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
+    (Number(document.querySelector(".sss-fa")?.value) * 3.1416) / 180 ||
+    undefined; // Converting deg to Rad
   let secondAngle =
-    (Number(document.querySelector(".sa")?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
+    (Number(document.querySelector(".sss-sa")?.value) * 3.1416) / 180 ||
+    undefined; // Converting deg to Rad
   let thirdAngle =
-    (Number(document.querySelector(".ta")?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
+    (Number(document.querySelector(".sss-ta")?.value) * 3.1416) / 180 ||
+    undefined; // Converting deg to Rad
 
-  firstAngle = cosineLawForAngle(secondSide, thirdSide, firstSide);
-  secondAngle = cosineLawForAngle(firstSide, thirdSide, secondSide);
-  thirdAngle = cosineLawForAngle(secondSide, firstSide, thirdSide);
+  firstAngle = Math.acos(cosineLawForAngle(secondSide, thirdSide, firstSide));
+  secondAngle = Math.acos(cosineLawForAngle(firstSide, thirdSide, secondSide));
+  thirdAngle = Math.acos(cosineLawForAngle(secondSide, firstSide, thirdSide));
 
-  document.querySelector(".answer-text").textContent = `a:${firstSide}
-  b:${secondSide}
-  c:${thirdSide}
-  x:${Math.round(firstAngle * 57.296)}
-  y:${Math.round(secondAngle * 57.296)}
-  z:${Math.round(thirdAngle * 57.296)}`;
+  document.querySelector(".answer-text").textContent = `a:${firstSide.toFixed(
+    2
+  )}
+  b:${secondSide.toFixed(2)}
+  c:${thirdSide.toFixed(2)}
+  x:${(firstAngle * 57.296).toFixed(0)}
+  y:${(secondAngle * 57.296).toFixed(0)}
+  z:${(thirdAngle * 57.296).toFixed(0)}`;
 });

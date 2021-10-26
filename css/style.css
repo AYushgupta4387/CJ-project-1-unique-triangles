@@ -12,10 +12,6 @@ body {
   background-color: #000100;
   color: aqua;
   font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
 }
 
@@ -41,14 +37,22 @@ label {
 }
 
 .btn {
-  background: transparent;
-  border: 3px solid aqua;
+  background: #041f25;
+  border: none;
+  box-shadow: 0 0.5rem aqua;
   border-radius: 1rem;
   padding: 1rem 2rem;
   margin: 1rem;
   color: aqua;
   font-size: 2rem;
   cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 500;
+  width: 27rem;
+}
+
+.btn:active {
+  box-shadow: 0 0.1rem aqua;
 }
 
 .parameter-choices-container {
