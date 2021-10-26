@@ -17,6 +17,7 @@ const answerContainer = document.querySelector(".final-answer-container");
 const triangleImageContainer = document.querySelector(".image-container");
 const triangleImage = document.querySelector(".image");
 const errorText = document.querySelector(".error-text");
+const triangleType = document.querySelector(".triangle-type");
 
 // FUNCTIONS
 sasBtn.addEventListener("click", function () {
@@ -126,6 +127,10 @@ sasSubmit.addEventListener("click", function () {
 
   secondAngle = 3.1416 - (firstAngle + thirdAngle);
 
+  let firstAngleInDeg = (firstAngle * 57.296).toFixed(0);
+  let secondAngleInDeg = (secondAngle * 57.296).toFixed(0);
+  let thirdAngleInDeg = (thirdAngle * 57.296).toFixed(0);
+
   if (
     // This checks the basic property of the triangle
     firstSide + secondSide > thirdSide &&
@@ -136,9 +141,9 @@ sasSubmit.addEventListener("click", function () {
       firstSide.toFixed(2),
       secondSide.toFixed(2),
       thirdSide.toFixed(2),
-      (firstAngle * 57.296).toFixed(0),
-      (secondAngle * 57.296).toFixed(0),
-      (thirdAngle * 57.296).toFixed(0)
+      firstAngleInDeg,
+      secondAngleInDeg,
+      thirdAngleInDeg
     );
 
     let typeOfTriangle1; // isosceles or scalene or equilateral
@@ -161,13 +166,17 @@ sasSubmit.addEventListener("click", function () {
     }
 
     if (
-      Math.round(firstAngle) == 90 ||
-      Math.round(secondAngle) == 90 ||
-      Math.round(thirdAngle) == 90
+      Math.round(firstAngleInDeg) == 90 ||
+      Math.round(secondAngleInDeg) == 90 ||
+      Math.round(thirdAngleInDeg) == 90
     ) {
       // This checks if the triangle has an angle = 90
       typeOfTriangle2 = "RHS";
-    } else if (firstAngle > 90 || secondAngle > 90 || thirdAngle > 90) {
+    } else if (
+      firstAngleInDeg > 90 ||
+      secondAngleInDeg > 90 ||
+      thirdAngleInDeg > 90
+    ) {
       // This checks if the triangle has an angle > 90
       typeOfTriangle2 = "obtuse";
     } else {
@@ -177,6 +186,8 @@ sasSubmit.addEventListener("click", function () {
     if (typeOfTriangle1 === "equilateral") {
       typeOfTriangle2 = "";
     }
+
+    triangleType.textContent = `${typeOfTriangle2} ${typeOfTriangle1}`;
 
     triangleImage.setAttribute(
       "src",
@@ -214,6 +225,10 @@ asaSubmit.addEventListener("click", function () {
   firstSide = sineLawForSide(thirdSide, thirdAngle, firstAngle);
   secondSide = sineLawForSide(thirdSide, thirdAngle, secondAngle);
 
+  let firstAngleInDeg = (firstAngle * 57.296).toFixed(0);
+  let secondAngleInDeg = (secondAngle * 57.296).toFixed(0);
+  let thirdAngleInDeg = (thirdAngle * 57.296).toFixed(0);
+
   if (
     // This checks the basic property of the triangle
     firstSide + secondSide > thirdSide &&
@@ -224,9 +239,9 @@ asaSubmit.addEventListener("click", function () {
       firstSide.toFixed(2),
       secondSide.toFixed(2),
       thirdSide.toFixed(2),
-      (firstAngle * 57.296).toFixed(0),
-      (secondAngle * 57.296).toFixed(0),
-      (thirdAngle * 57.296).toFixed(0)
+      firstAngleInDeg,
+      secondAngleInDeg,
+      thirdAngleInDeg
     );
 
     let typeOfTriangle1; // isosceles or scalene or equilateral
@@ -248,10 +263,18 @@ asaSubmit.addEventListener("click", function () {
       typeOfTriangle1 = "scalene";
     }
 
-    if (firstAngle === 90 || secondAngle === 90 || thirdAngle === 90) {
+    if (
+      firstAngleInDeg === 90 ||
+      secondAngleInDeg === 90 ||
+      thirdAngleInDeg === 90
+    ) {
       // This checks if the triangle has an angle = 90
       typeOfTriangle2 = "RHS";
-    } else if (firstAngle > 90 || secondAngle > 90 || thirdAngle > 90) {
+    } else if (
+      firstAngleInDeg > 90 ||
+      secondAngleInDeg > 90 ||
+      thirdAngleInDeg > 90
+    ) {
       // This checks if the triangle has an angle > 90
       typeOfTriangle2 = "obtuse";
     } else {
@@ -261,6 +284,8 @@ asaSubmit.addEventListener("click", function () {
     if (typeOfTriangle1 === "equilateral") {
       typeOfTriangle2 = "";
     }
+
+    triangleType.textContent = `${typeOfTriangle2} ${typeOfTriangle1}`;
 
     triangleImage.setAttribute(
       "src",
@@ -297,6 +322,10 @@ sssSubmit.addEventListener("click", function () {
   secondAngle = Math.acos(cosineLawForAngle(firstSide, thirdSide, secondSide));
   thirdAngle = Math.acos(cosineLawForAngle(secondSide, firstSide, thirdSide));
 
+  let firstAngleInDeg = (firstAngle * 57.296).toFixed(0);
+  let secondAngleInDeg = (secondAngle * 57.296).toFixed(0);
+  let thirdAngleInDeg = (thirdAngle * 57.296).toFixed(0);
+
   if (
     // This checks the basic property of the triangle
     firstSide + secondSide > thirdSide &&
@@ -307,9 +336,9 @@ sssSubmit.addEventListener("click", function () {
       firstSide.toFixed(2),
       secondSide.toFixed(2),
       thirdSide.toFixed(2),
-      (firstAngle * 57.296).toFixed(0),
-      (secondAngle * 57.296).toFixed(0),
-      (thirdAngle * 57.296).toFixed(0)
+      firstAngleInDeg,
+      secondAngleInDeg,
+      thirdAngleInDeg
     );
 
     let typeOfTriangle1; // isosceles or scalene or equilateral
@@ -331,10 +360,18 @@ sssSubmit.addEventListener("click", function () {
       typeOfTriangle1 = "scalene";
     }
 
-    if (firstAngle === 90 || secondAngle === 90 || thirdAngle === 90) {
+    if (
+      firstAngleInDeg == 90 ||
+      secondAngleInDeg == 90 ||
+      thirdAngleInDeg == 90
+    ) {
       // This checks if the triangle has an angle = 90
       typeOfTriangle2 = "RHS";
-    } else if (firstAngle > 90 || secondAngle > 90 || thirdAngle > 90) {
+    } else if (
+      firstAngleInDeg > 90 ||
+      secondAngleInDeg > 90 ||
+      thirdAngleInDeg > 90
+    ) {
       // This checks if the triangle has an angle > 90
       typeOfTriangle2 = "obtuse";
     } else {
@@ -344,6 +381,8 @@ sssSubmit.addEventListener("click", function () {
     if (typeOfTriangle1 === "equilateral") {
       typeOfTriangle2 = "";
     }
+
+    triangleType.textContent = `${typeOfTriangle2} ${typeOfTriangle1}`;
 
     triangleImage.setAttribute(
       "src",
