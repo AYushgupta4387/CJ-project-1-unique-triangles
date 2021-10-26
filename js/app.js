@@ -21,6 +21,11 @@ const triangleType = document.querySelector(".triangle-type");
 
 // FUNCTIONS
 sasBtn.addEventListener("click", function () {
+  if (!answerContainer.classList.contains("hidden")) {
+    answerContainer.classList.add("hidden");
+    triangleImageContainer.classList.add("hidden");
+  }
+
   sasContainer.classList.toggle("hidden");
 
   if (!asaContainer.classList.contains("hidden")) {
@@ -33,6 +38,11 @@ sasBtn.addEventListener("click", function () {
 });
 
 asaBtn.addEventListener("click", function () {
+  if (!answerContainer.classList.contains("hidden")) {
+    answerContainer.classList.add("hidden");
+    triangleImageContainer.classList.add("hidden");
+  }
+
   asaContainer.classList.toggle("hidden");
 
   if (!sasContainer.classList.contains("hidden")) {
@@ -45,6 +55,11 @@ asaBtn.addEventListener("click", function () {
 });
 
 sssBtn.addEventListener("click", function () {
+  if (!answerContainer.classList.contains("hidden")) {
+    answerContainer.classList.add("hidden");
+    triangleImageContainer.classList.add("hidden");
+  }
+
   sssContainer.classList.toggle("hidden");
 
   if (!asaContainer.classList.contains("hidden")) {
@@ -57,12 +72,12 @@ sssBtn.addEventListener("click", function () {
 });
 
 const answers = function (a, b, c, x, y, z) {
-  document.querySelector(".a").textContent = `First Side (a) = ${a}`;
-  document.querySelector(".b").textContent = `Second Side (b) = ${b}`;
-  document.querySelector(".c").textContent = `Third Side (c) = ${c}`;
-  document.querySelector(".x").textContent = `First Angle (x) = ${x}`;
-  document.querySelector(".y").textContent = `Second Angle (y) = ${y}`;
-  document.querySelector(".z").textContent = `Third Angle (z) = ${z}`;
+  document.querySelector(".a").textContent = a;
+  document.querySelector(".b").textContent = b;
+  document.querySelector(".c").textContent = c;
+  document.querySelector(".x").textContent = x;
+  document.querySelector(".y").textContent = y;
+  document.querySelector(".z").textContent = z;
 };
 
 // LOGIC
@@ -194,8 +209,8 @@ sasSubmit.addEventListener("click", function () {
       `images/${typeOfTriangle2}-${typeOfTriangle1}.png`
     );
 
-    answerContainer.classList.toggle("hidden");
-    triangleImageContainer.classList.toggle("hidden");
+    answerContainer.classList.remove("hidden");
+    triangleImageContainer.classList.remove("hidden");
   } else {
     errorText.classList.toggle("hidden");
   }
@@ -292,8 +307,8 @@ asaSubmit.addEventListener("click", function () {
       `images/${typeOfTriangle2}-${typeOfTriangle1}.png`
     );
 
-    answerContainer.classList.toggle("hidden");
-    triangleImageContainer.classList.toggle("hidden");
+    answerContainer.classList.remove("hidden");
+    triangleImageContainer.classList.remove("hidden");
   } else {
     errorText.classList.toggle("hidden");
   }
@@ -389,8 +404,8 @@ sssSubmit.addEventListener("click", function () {
       `images/${typeOfTriangle2}-${typeOfTriangle1}.png`
     );
 
-    answerContainer.classList.toggle("hidden");
-    triangleImageContainer.classList.toggle("hidden");
+    answerContainer.classList.remove("hidden");
+    triangleImageContainer.classList.remove("hidden");
   } else {
     errorText.classList.toggle("hidden");
   }

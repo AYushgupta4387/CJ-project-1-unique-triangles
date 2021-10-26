@@ -49,6 +49,18 @@ label {
   font-size: 1.5rem;
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1.6rem;
+}
+
+td, th {
+  border: 1px solid aqua;
+  text-align: left;
+  padding: 8px;
+}
+
 .btn {
   background: #041f25;
   border: none;
@@ -113,11 +125,11 @@ label {
   margin-bottom: 3rem;
 }
 
-.answer-text {
+/* .answer-text {
   font-size: 2rem;
   text-align: left;
   line-height: 1.6;
-}
+} */
 
 .hidden {
   display: none;
