@@ -19,122 +19,215 @@ const triangleImage = document.querySelector(".image");
 const errorText = document.querySelector(".error-text");
 const triangleType = document.querySelector(".triangle-type");
 
+let firstSide;
+let secondSide;
+let thirdSide;
+let firstAngle;
+let secondAngle;
+let thirdAngle;
+
+let firstAngleInDeg;
+let secondAngleInDeg;
+let thirdAngleInDeg;
+
 // FUNCTIONS
-sasBtn.addEventListener("click", function () {
+function hideResult() {
+  // This hides the results, if someone switches from one triangle input type to another (eg - from SAS to ASA)
   if (!answerContainer.classList.contains("hidden")) {
     answerContainer.classList.add("hidden");
     triangleImageContainer.classList.add("hidden");
   }
 
-  sasContainer.classList.toggle("hidden");
+  errorText.classList.add("hidden");
+}
 
-  if (!asaContainer.classList.contains("hidden")) {
-    asaContainer.classList.add("hidden");
+function hideContainer(containerType) {
+  // This hides other containers, once a container is clicked
+  if (!containerType.classList.contains("hidden")) {
+    containerType.classList.add("hidden");
   }
+}
 
-  if (!sssContainer.classList.contains("hidden")) {
-    sssContainer.classList.add("hidden");
-  }
-});
-
-asaBtn.addEventListener("click", function () {
-  if (!answerContainer.classList.contains("hidden")) {
-    answerContainer.classList.add("hidden");
-    triangleImageContainer.classList.add("hidden");
-  }
-
-  asaContainer.classList.toggle("hidden");
-
-  if (!sasContainer.classList.contains("hidden")) {
-    sasContainer.classList.add("hidden");
-  }
-
-  if (!sssContainer.classList.contains("hidden")) {
-    sssContainer.classList.add("hidden");
-  }
-});
-
-sssBtn.addEventListener("click", function () {
-  if (!answerContainer.classList.contains("hidden")) {
-    answerContainer.classList.add("hidden");
-    triangleImageContainer.classList.add("hidden");
-  }
-
-  sssContainer.classList.toggle("hidden");
-
-  if (!asaContainer.classList.contains("hidden")) {
-    asaContainer.classList.add("hidden");
-  }
-
-  if (!sasContainer.classList.contains("hidden")) {
-    sasContainer.classList.add("hidden");
-  }
-});
-
-const answers = function (a, b, c, x, y, z) {
+function answers(a, b, c, x, y, z) {
   document.querySelector(".a").textContent = a;
   document.querySelector(".b").textContent = b;
   document.querySelector(".c").textContent = c;
   document.querySelector(".x").textContent = x;
   document.querySelector(".y").textContent = y;
   document.querySelector(".z").textContent = z;
-};
-
-// LOGIC
+}
 
 // Cosine rule to calculate a side when 2 sides and 1 angle is known
-const cosineLawForSide = function (sideA, sideB, angleC) {
+function cosineLawForSide(sideA, sideB, angleC) {
   let sideC = Math.sqrt(
     Math.pow(sideA, 2) +
       Math.pow(sideB, 2) -
       2 * sideA * sideB * Math.cos(angleC)
   );
   return sideC;
-};
+}
 
 // Cosine rule to calculate an angle when 3 sides are known
 // NOTE - This outputs cosine of angle, not the angle in rad.
-const cosineLawForAngle = function (sideA, sideB, sideC) {
+function cosineLawForAngle(sideA, sideB, sideC) {
   let cosineAngleC =
     (Math.pow(sideA, 2) + Math.pow(sideB, 2) - Math.pow(sideC, 2)) /
     (2 * sideA * sideB);
 
   return cosineAngleC;
-};
+}
 
 // Sine rule to calculate an angle
 // NOTE - This outputs sine of angle, not the angle in rad.
-const sineLawForAngle = function (sideA, sideB, angleB) {
+function sineLawForAngle(sideA, sideB, angleB) {
   let sineAngleA = (sideA * Math.sin(angleB)) / sideB;
 
   return sineAngleA;
-};
+}
 
 // Sine rule to calculate a side
-const sineLawForSide = function (sideA, angleA, angleB) {
+function sineLawForSide(sideA, angleA, angleB) {
   let sideB = (sideA * Math.sin(angleB)) / Math.sin(angleA);
 
   return sideB;
-};
+}
+
+function calculateGivenParameters(fs, ss, ts, fa, sa, ta) {
+  // Sides
+  firstSide = Number(document.querySelector(fs)?.value) || undefined;
+  secondSide = Number(document.querySelector(ss)?.value) || undefined;
+  thirdSide = Number(document.querySelector(ts)?.value) || undefined;
+
+  // Angles
+  firstAngle =
+    (Number(document.querySelector(fa)?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
+  secondAngle =
+    (Number(document.querySelector(sa)?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
+  thirdAngle =
+    (Number(document.querySelector(ta)?.value) * 3.1416) / 180 || undefined; // Converting deg to Rad
+}
+
+function calculateResults() {
+  if (
+    // This checks the basic property of the triangle
+    firstSide + secondSide > thirdSide &&
+    secondSide + thirdSide > firstSide &&
+    firstSide + thirdSide > secondSide
+  ) {
+    answers(
+      firstSide.toFixed(2),
+      secondSide.toFixed(2),
+      thirdSide.toFixed(2),
+      firstAngleInDeg,
+      secondAngleInDeg,
+      thirdAngleInDeg
+    );
+
+    let typeOfTriangle1; // isosceles or scalene or equilateral
+    let typeOfTriangle2; // acute or obtuse or RHS
+
+    if (
+      // This checks if the triangle is isosceles
+      firstSide == secondSide ||
+      secondSide == thirdSide ||
+      firstSide == thirdSide
+    ) {
+      typeOfTriangle1 = "isosceles";
+
+      if (firstSide == secondSide && firstSide == thirdSide) {
+        // This checks if the triangle is equilateral
+        typeOfTriangle1 = "equilateral";
+      }
+    } else {
+      typeOfTriangle1 = "scalene";
+    }
+
+    if (
+      firstAngleInDeg == 90 ||
+      secondAngleInDeg == 90 ||
+      thirdAngleInDeg == 90
+    ) {
+      // This checks if the triangle has an angle = 90
+      typeOfTriangle2 = "RHS";
+    } else if (
+      firstAngleInDeg > 90 ||
+      secondAngleInDeg > 90 ||
+      thirdAngleInDeg > 90
+    ) {
+      // This checks if the triangle has an angle > 90
+      typeOfTriangle2 = "obtuse";
+    } else {
+      typeOfTriangle2 = "acute";
+    }
+
+    if (typeOfTriangle1 == "equilateral") {
+      typeOfTriangle2 = "";
+    }
+
+    triangleType.textContent = `${typeOfTriangle2} ${typeOfTriangle1}`;
+
+    triangleImage.setAttribute(
+      "src",
+      `images/${typeOfTriangle2}-${typeOfTriangle1}.png`
+    );
+
+    answerContainer.classList.remove("hidden");
+    triangleImageContainer.classList.remove("hidden");
+
+    if (!errorText.classList.contains("hidden")) {
+      errorText.classList.add("hidden");
+    }
+  } else {
+    errorText.classList.remove("hidden");
+    answerContainer.classList.add("hidden");
+    triangleImageContainer.classList.add("hidden");
+  }
+}
+
+function calculateAnglesInDeg() {
+  firstAngleInDeg = (firstAngle * 57.296).toFixed(0);
+  secondAngleInDeg = (secondAngle * 57.296).toFixed(0);
+  thirdAngleInDeg = (thirdAngle * 57.296).toFixed(0);
+}
+
+// LOGIC
+sasBtn.addEventListener("click", function () {
+  hideResult();
+
+  sasContainer.classList.toggle("hidden");
+
+  hideContainer(asaContainer);
+  hideContainer(sssContainer);
+});
+
+asaBtn.addEventListener("click", function () {
+  hideResult();
+
+  asaContainer.classList.toggle("hidden");
+
+  hideContainer(sasContainer);
+  hideContainer(sssContainer);
+});
+
+sssBtn.addEventListener("click", function () {
+  hideResult();
+
+  sssContainer.classList.toggle("hidden");
+
+  hideContainer(asaContainer);
+  hideContainer(sasContainer);
+});
 
 // SAS
 sasSubmit.addEventListener("click", function () {
-  // Sides
-  let firstSide = Number(document.querySelector(".sas-fs")?.value) || undefined;
-  let secondSide =
-    Number(document.querySelector(".sas-ss")?.value) || undefined;
-  let thirdSide = Number(document.querySelector(".sas-ts")?.value) || undefined;
-
-  // Angles
-  let firstAngle =
-    (Number(document.querySelector(".sas-fa")?.value) * 3.1416) / 180 ||
-    undefined; // Converting deg to Rad
-  let secondAngle =
-    (Number(document.querySelector(".sas-sa")?.value) * 3.1416) / 180 ||
-    undefined; // Converting deg to Rad
-  let thirdAngle =
-    (Number(document.querySelector(".sas-ta")?.value) * 3.1416) / 180 ||
-    undefined; // Converting deg to Rad
+  calculateGivenParameters(
+    ".sas-fs",
+    ".sas-ss",
+    ".sas-ts",
+    ".sas-fa",
+    ".sas-sa",
+    ".sas-ta"
+  );
 
   thirdSide = cosineLawForSide(firstSide, secondSide, thirdAngle);
 
@@ -142,293 +235,48 @@ sasSubmit.addEventListener("click", function () {
 
   secondAngle = 3.1416 - (firstAngle + thirdAngle);
 
-  let firstAngleInDeg = (firstAngle * 57.296).toFixed(0);
-  let secondAngleInDeg = (secondAngle * 57.296).toFixed(0);
-  let thirdAngleInDeg = (thirdAngle * 57.296).toFixed(0);
+  calculateAnglesInDeg();
 
-  if (
-    // This checks the basic property of the triangle
-    firstSide + secondSide > thirdSide &&
-    secondSide + thirdSide > firstSide &&
-    firstSide + thirdSide > secondSide
-  ) {
-    answers(
-      firstSide.toFixed(2),
-      secondSide.toFixed(2),
-      thirdSide.toFixed(2),
-      firstAngleInDeg,
-      secondAngleInDeg,
-      thirdAngleInDeg
-    );
-
-    let typeOfTriangle1; // isosceles or scalene or equilateral
-    let typeOfTriangle2; // acute or obtuse or RHS
-
-    if (
-      // This checks if the triangle is isosceles
-      firstSide == secondSide ||
-      secondSide == thirdSide ||
-      firstSide == thirdSide
-    ) {
-      typeOfTriangle1 = "isosceles";
-
-      if (firstSide == secondSide && firstSide == thirdSide) {
-        // This checks if the triangle is equilateral
-        typeOfTriangle1 = "equilateral";
-      }
-    } else {
-      typeOfTriangle1 = "scalene";
-    }
-
-    if (
-      Math.round(firstAngleInDeg) == 90 ||
-      Math.round(secondAngleInDeg) == 90 ||
-      Math.round(thirdAngleInDeg) == 90
-    ) {
-      // This checks if the triangle has an angle = 90
-      typeOfTriangle2 = "RHS";
-    } else if (
-      firstAngleInDeg > 90 ||
-      secondAngleInDeg > 90 ||
-      thirdAngleInDeg > 90
-    ) {
-      // This checks if the triangle has an angle > 90
-      typeOfTriangle2 = "obtuse";
-    } else {
-      typeOfTriangle2 = "acute";
-    }
-
-    if (typeOfTriangle1 == "equilateral") {
-      typeOfTriangle2 = "";
-    }
-
-    triangleType.textContent = `${typeOfTriangle2} ${typeOfTriangle1}`;
-
-    triangleImage.setAttribute(
-      "src",
-      `images/${typeOfTriangle2}-${typeOfTriangle1}.png`
-    );
-
-    answerContainer.classList.remove("hidden");
-    triangleImageContainer.classList.remove("hidden");
-
-    if (!errorText.classList.contains("hidden")) {
-      errorText.classList.add("hidden");
-    }
-  } else {
-    errorText.classList.remove("hidden");
-    answerContainer.classList.add("hidden");
-    triangleImageContainer.classList.add("hidden");
-  }
+  calculateResults();
 });
 
 // ASA
 asaSubmit.addEventListener("click", function () {
-  // Sides
-  let firstSide = Number(document.querySelector(".asa-fs")?.value) || undefined;
-  let secondSide =
-    Number(document.querySelector(".asa-ss")?.value) || undefined;
-  let thirdSide = Number(document.querySelector(".asa-ts")?.value) || undefined;
-
-  // Angles
-  let firstAngle =
-    (Number(document.querySelector(".asa-fa")?.value) * 3.1416) / 180 ||
-    undefined; // Converting deg to Rad
-  let secondAngle =
-    (Number(document.querySelector(".asa-sa")?.value) * 3.1416) / 180 ||
-    undefined; // Converting deg to Rad
-  let thirdAngle =
-    (Number(document.querySelector(".asa-ta")?.value) * 3.1416) / 180 ||
-    undefined; // Converting deg to Rad
+  calculateGivenParameters(
+    ".asa-fs",
+    ".asa-ss",
+    ".asa-ts",
+    ".asa-fa",
+    ".asa-sa",
+    ".asa-ta"
+  );
 
   thirdAngle = 3.1416 - (firstAngle + secondAngle);
 
   firstSide = sineLawForSide(thirdSide, thirdAngle, firstAngle);
   secondSide = sineLawForSide(thirdSide, thirdAngle, secondAngle);
 
-  let firstAngleInDeg = (firstAngle * 57.296).toFixed(0);
-  let secondAngleInDeg = (secondAngle * 57.296).toFixed(0);
-  let thirdAngleInDeg = (thirdAngle * 57.296).toFixed(0);
+  calculateAnglesInDeg();
 
-  console.log(firstAngleInDeg);
-  console.log(secondAngleInDeg);
-  console.log(thirdAngleInDeg);
-
-  if (
-    // This checks the basic property of the triangle
-    firstSide + secondSide > thirdSide &&
-    secondSide + thirdSide > firstSide &&
-    firstSide + thirdSide > secondSide
-  ) {
-    answers(
-      firstSide.toFixed(2),
-      secondSide.toFixed(2),
-      thirdSide.toFixed(2),
-      firstAngleInDeg,
-      secondAngleInDeg,
-      thirdAngleInDeg
-    );
-
-    let typeOfTriangle1; // isosceles or scalene or equilateral
-    let typeOfTriangle2; // acute or obtuse or RHS
-
-    if (
-      // This checks if the triangle is isosceles
-      firstSide == secondSide ||
-      secondSide == thirdSide ||
-      firstSide == thirdSide
-    ) {
-      typeOfTriangle1 = "isosceles";
-
-      if (firstSide == secondSide && firstSide == thirdSide) {
-        // This checks if the triangle is equilateral
-        typeOfTriangle1 = "equilateral";
-      }
-    } else {
-      typeOfTriangle1 = "scalene";
-    }
-
-    if (
-      firstAngleInDeg == 90 ||
-      secondAngleInDeg == 90 ||
-      thirdAngleInDeg == 90
-    ) {
-      // This checks if the triangle has an angle = 90
-      typeOfTriangle2 = "RHS";
-    } else if (
-      firstAngleInDeg > 90 ||
-      secondAngleInDeg > 90 ||
-      thirdAngleInDeg > 90
-    ) {
-      // This checks if the triangle has an angle > 90
-      typeOfTriangle2 = "obtuse";
-    } else {
-      typeOfTriangle2 = "acute";
-    }
-
-    if (typeOfTriangle1 == "equilateral") {
-      typeOfTriangle2 = "";
-    }
-
-    triangleType.textContent = `${typeOfTriangle2} ${typeOfTriangle1}`;
-
-    triangleImage.setAttribute(
-      "src",
-      `images/${typeOfTriangle2}-${typeOfTriangle1}.png`
-    );
-
-    answerContainer.classList.remove("hidden");
-    triangleImageContainer.classList.remove("hidden");
-
-    if (!errorText.classList.contains("hidden")) {
-      errorText.classList.add("hidden");
-    }
-  } else {
-    errorText.classList.remove("hidden");
-    answerContainer.classList.add("hidden");
-    triangleImageContainer.classList.add("hidden");
-  }
+  calculateResults();
 });
 
 // SSS
 sssSubmit.addEventListener("click", function () {
-  // Sides
-  let firstSide = Number(document.querySelector(".sss-fs")?.value) || undefined;
-  let secondSide =
-    Number(document.querySelector(".sss-ss")?.value) || undefined;
-  let thirdSide = Number(document.querySelector(".sss-ts")?.value) || undefined;
-
-  // Angles
-  let firstAngle =
-    (Number(document.querySelector(".sss-fa")?.value) * 3.1416) / 180 ||
-    undefined; // Converting deg to Rad
-  let secondAngle =
-    (Number(document.querySelector(".sss-sa")?.value) * 3.1416) / 180 ||
-    undefined; // Converting deg to Rad
-  let thirdAngle =
-    (Number(document.querySelector(".sss-ta")?.value) * 3.1416) / 180 ||
-    undefined; // Converting deg to Rad
+  calculateGivenParameters(
+    ".sss-fs",
+    ".sss-ss",
+    ".sss-ts",
+    ".sss-fa",
+    ".sss-sa",
+    ".sss-ta"
+  );
 
   firstAngle = Math.acos(cosineLawForAngle(secondSide, thirdSide, firstSide));
   secondAngle = Math.acos(cosineLawForAngle(firstSide, thirdSide, secondSide));
   thirdAngle = Math.acos(cosineLawForAngle(secondSide, firstSide, thirdSide));
 
-  let firstAngleInDeg = (firstAngle * 57.296).toFixed(0);
-  let secondAngleInDeg = (secondAngle * 57.296).toFixed(0);
-  let thirdAngleInDeg = (thirdAngle * 57.296).toFixed(0);
+  calculateAnglesInDeg();
 
-  if (
-    // This checks the basic property of the triangle
-    firstSide + secondSide > thirdSide &&
-    secondSide + thirdSide > firstSide &&
-    firstSide + thirdSide > secondSide
-  ) {
-    answers(
-      firstSide.toFixed(2),
-      secondSide.toFixed(2),
-      thirdSide.toFixed(2),
-      firstAngleInDeg,
-      secondAngleInDeg,
-      thirdAngleInDeg
-    );
-
-    let typeOfTriangle1; // isosceles or scalene or equilateral
-    let typeOfTriangle2; // acute or obtuse or RHS
-
-    if (
-      // This checks if the triangle is isosceles
-      firstSide == secondSide ||
-      secondSide == thirdSide ||
-      firstSide == thirdSide
-    ) {
-      typeOfTriangle1 = "isosceles";
-
-      if (firstSide == secondSide && firstSide == thirdSide) {
-        // This checks if the triangle is equilateral
-        typeOfTriangle1 = "equilateral";
-      }
-    } else {
-      typeOfTriangle1 = "scalene";
-    }
-
-    if (
-      firstAngleInDeg == 90 ||
-      secondAngleInDeg == 90 ||
-      thirdAngleInDeg == 90
-    ) {
-      // This checks if the triangle has an angle = 90
-      typeOfTriangle2 = "RHS";
-    } else if (
-      firstAngleInDeg > 90 ||
-      secondAngleInDeg > 90 ||
-      thirdAngleInDeg > 90
-    ) {
-      // This checks if the triangle has an angle > 90
-      typeOfTriangle2 = "obtuse";
-    } else {
-      typeOfTriangle2 = "acute";
-    }
-
-    if (typeOfTriangle1 == "equilateral") {
-      typeOfTriangle2 = "";
-    }
-
-    triangleType.textContent = `${typeOfTriangle2} ${typeOfTriangle1}`;
-
-    triangleImage.setAttribute(
-      "src",
-      `images/${typeOfTriangle2}-${typeOfTriangle1}.png`
-    );
-
-    answerContainer.classList.remove("hidden");
-    triangleImageContainer.classList.remove("hidden");
-
-    if (!errorText.classList.contains("hidden")) {
-      errorText.classList.add("hidden");
-    }
-  } else {
-    errorText.classList.remove("hidden");
-    answerContainer.classList.add("hidden");
-    triangleImageContainer.classList.add("hidden");
-  }
+  calculateResults();
 });
