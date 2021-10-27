@@ -166,13 +166,13 @@ sasSubmit.addEventListener("click", function () {
 
     if (
       // This checks if the triangle is isosceles
-      firstSide === secondSide ||
-      secondSide === thirdSide ||
-      firstSide === thirdSide
+      firstSide == secondSide ||
+      secondSide == thirdSide ||
+      firstSide == thirdSide
     ) {
       typeOfTriangle1 = "isosceles";
 
-      if (firstSide === secondSide && firstSide === thirdSide) {
+      if (firstSide == secondSide && firstSide == thirdSide) {
         // This checks if the triangle is equilateral
         typeOfTriangle1 = "equilateral";
       }
@@ -198,7 +198,7 @@ sasSubmit.addEventListener("click", function () {
       typeOfTriangle2 = "acute";
     }
 
-    if (typeOfTriangle1 === "equilateral") {
+    if (typeOfTriangle1 == "equilateral") {
       typeOfTriangle2 = "";
     }
 
@@ -211,8 +211,14 @@ sasSubmit.addEventListener("click", function () {
 
     answerContainer.classList.remove("hidden");
     triangleImageContainer.classList.remove("hidden");
+
+    if (!errorText.classList.contains("hidden")) {
+      errorText.classList.add("hidden");
+    }
   } else {
-    errorText.classList.toggle("hidden");
+    errorText.classList.remove("hidden");
+    answerContainer.classList.add("hidden");
+    triangleImageContainer.classList.add("hidden");
   }
 });
 
@@ -244,6 +250,10 @@ asaSubmit.addEventListener("click", function () {
   let secondAngleInDeg = (secondAngle * 57.296).toFixed(0);
   let thirdAngleInDeg = (thirdAngle * 57.296).toFixed(0);
 
+  console.log(firstAngleInDeg);
+  console.log(secondAngleInDeg);
+  console.log(thirdAngleInDeg);
+
   if (
     // This checks the basic property of the triangle
     firstSide + secondSide > thirdSide &&
@@ -264,13 +274,13 @@ asaSubmit.addEventListener("click", function () {
 
     if (
       // This checks if the triangle is isosceles
-      firstSide === secondSide ||
-      secondSide === thirdSide ||
-      firstSide === thirdSide
+      firstSide == secondSide ||
+      secondSide == thirdSide ||
+      firstSide == thirdSide
     ) {
       typeOfTriangle1 = "isosceles";
 
-      if (firstSide === secondSide && firstSide === thirdSide) {
+      if (firstSide == secondSide && firstSide == thirdSide) {
         // This checks if the triangle is equilateral
         typeOfTriangle1 = "equilateral";
       }
@@ -279,9 +289,9 @@ asaSubmit.addEventListener("click", function () {
     }
 
     if (
-      firstAngleInDeg === 90 ||
-      secondAngleInDeg === 90 ||
-      thirdAngleInDeg === 90
+      firstAngleInDeg == 90 ||
+      secondAngleInDeg == 90 ||
+      thirdAngleInDeg == 90
     ) {
       // This checks if the triangle has an angle = 90
       typeOfTriangle2 = "RHS";
@@ -296,7 +306,7 @@ asaSubmit.addEventListener("click", function () {
       typeOfTriangle2 = "acute";
     }
 
-    if (typeOfTriangle1 === "equilateral") {
+    if (typeOfTriangle1 == "equilateral") {
       typeOfTriangle2 = "";
     }
 
@@ -309,8 +319,14 @@ asaSubmit.addEventListener("click", function () {
 
     answerContainer.classList.remove("hidden");
     triangleImageContainer.classList.remove("hidden");
+
+    if (!errorText.classList.contains("hidden")) {
+      errorText.classList.add("hidden");
+    }
   } else {
-    errorText.classList.toggle("hidden");
+    errorText.classList.remove("hidden");
+    answerContainer.classList.add("hidden");
+    triangleImageContainer.classList.add("hidden");
   }
 });
 
@@ -361,13 +377,13 @@ sssSubmit.addEventListener("click", function () {
 
     if (
       // This checks if the triangle is isosceles
-      firstSide === secondSide ||
-      secondSide === thirdSide ||
-      firstSide === thirdSide
+      firstSide == secondSide ||
+      secondSide == thirdSide ||
+      firstSide == thirdSide
     ) {
       typeOfTriangle1 = "isosceles";
 
-      if (firstSide === secondSide && firstSide === thirdSide) {
+      if (firstSide == secondSide && firstSide == thirdSide) {
         // This checks if the triangle is equilateral
         typeOfTriangle1 = "equilateral";
       }
@@ -393,7 +409,7 @@ sssSubmit.addEventListener("click", function () {
       typeOfTriangle2 = "acute";
     }
 
-    if (typeOfTriangle1 === "equilateral") {
+    if (typeOfTriangle1 == "equilateral") {
       typeOfTriangle2 = "";
     }
 
@@ -406,7 +422,13 @@ sssSubmit.addEventListener("click", function () {
 
     answerContainer.classList.remove("hidden");
     triangleImageContainer.classList.remove("hidden");
+
+    if (!errorText.classList.contains("hidden")) {
+      errorText.classList.add("hidden");
+    }
   } else {
-    errorText.classList.toggle("hidden");
+    errorText.classList.remove("hidden");
+    answerContainer.classList.add("hidden");
+    triangleImageContainer.classList.add("hidden");
   }
 });
